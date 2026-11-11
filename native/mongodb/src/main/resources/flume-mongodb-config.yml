@@ -1,0 +1,88 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to you under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+#
+# Flume MongoDB Configuration
+# This file contains configuration for one Agent identified as mongodb that accepts
+# incoming events and writes them to MongoDB. Each File Channel is drained by its
+# own MongoDB Sink.
+#
+
+dataPath: /opt/flume-mongodb
+
+mongodb:
+  sources:
+    avroSource:
+      port: 4141
+      bind: 0.0.0.0
+      compression-type: deflate
+      threads: 0
+      type: avro
+      channels:
+        - fileChannel1
+        - fileChannel2
+        - fileChannel3
+        - fileChannel4
+      selector:
+        type: load_balancing
+        policy: round_robin
+  channels:
+    fileChannel1:
+      type: file
+      checkpointDir: ${dataPath}/checkpoint1
+      dataDirs: ${dataPath}/data1
+      minimumRequiredSpace: 524288000
+      capacity: 200000000
+    fileChannel2:
+      type: file
+      checkpointDir: ${dataPath}/checkpoint2
+      dataDirs: ${dataPath}/data2
+      minimumRequiredSpace: 524288000
+      capacity: 200000000
+    fileChannel3:
+      type: file
+      checkpointDir: ${dataPath}/checkpoint3
+      dataDirs: ${dataPath}/data3
+      minimumRequiredSpace: 524288000
+      capacity: 200000000
+    fileChannel4:
+      type: file
+      checkpointDir: ${dataPath}/checkpoint4
+      dataDirs: ${dataPath}/data4
+      minimumRequiredSpace: 524288000
+      capacity: 200000000
+  sinks:
+    mongoDbSink1:
+      type: org.apache.flume.sink.mongodb.MongoDbSink
+      channel: fileChannel1
+      mongodb.database: Events
+      mongodb.collection: events
+    mongoDbSink2:
+      type: org.apache.flume.sink.mongodb.MongoDbSink
+      channel: fileChannel2
+      mongodb.database: Events
+      mongodb.collection: events
+    mongoDbSink3:
+      type: org.apache.flume.sink.mongodb.MongoDbSink
+      channel: fileChannel3
+      mongodb.database: Events
+      mongodb.collection: events
+    mongoDbSink4:
+      type: org.apache.flume.sink.mongodb.MongoDbSink
+      channel: fileChannel4
+      mongodb.database: Events
+      mongodb.collection: events

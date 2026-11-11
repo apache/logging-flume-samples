@@ -1,0 +1,79 @@
+{
+  "requestDto": {
+    "id": "831813f6-687e-4406-b5b2-3972e67f8b22",
+    "tenantId": "TENANT_025461",
+    "insertedAt": 1761069888768,
+    "sourceCreatedAt": 1761069855366,
+    "sourceTerminatedAt": 1761069869117,
+    "toNumber": "+18585339140",
+    "fromNumber": "+16025516351",
+    "inboundSegments": 3,
+    "outboundSegments": 4,
+    "workitemId": "e3ede4fd-f18e-468e-b4cd-1e62226167fc"
+  },
+  "ratedActivity": {
+    "id": 256996,
+    "accountId": 3957484,
+    "locationId": null,
+    "userId": null,
+    "productCategoryId": 4,
+    "ratePlanId": 10266,
+    "totalAmount": 0.052500,
+    "activityDate": "2025-10-21T18:04:15.366",
+    "originatingNumber": null,
+    "destinationNumber": null,
+    "duration": null,
+    "creationDate": null,
+    "createdBy": null,
+    "lastUpdatedDate": null,
+    "lastUpdatedBy": null,
+    "ratedActivityDetailList": [
+      {
+        "id": 261516,
+        "attributeList": [
+          {
+            "id": 117822,
+            "attributeName": "destinationNumber",
+            "attributeValue": "+18585339140"
+          }],
+        "rateId": 10634,
+        "rateTypeId": 12,
+        "ratePrice": 0.007500,
+        "activityAmount": 7,
+        "chargeAmount": 0.052500,
+        "bucketAmount": null,
+        "creationDate": null,
+        "createdBy": null,
+        "lastUpdatedDate": null,
+        "lastUpdatedBy": null
+      }
+    ],
+    "attributeList": [
+      {
+        "id": 939033,
+        "attributeName": "customerAccountId",
+        "attributeValue": "TENANT_025461"
+      },
+      {
+        "id": 939034,
+        "attributeName": "customerBillingSiteId",
+        "attributeValue": "660055"
+      },
+      {
+        "id": 939035,
+        "attributeName": "customerServiceLocationSiteId",
+        "attributeValue": "660055"
+      },
+      {
+        "id": 939036,
+        "attributeName": "destinationNumber",
+        "attributeValue": "+18585339140"
+      },
+      {
+        "id": 939037,
+        "attributeName": "originationNumber",
+        "attributeValue": "+16025516351"
+      }
+    ]
+  }
+}
