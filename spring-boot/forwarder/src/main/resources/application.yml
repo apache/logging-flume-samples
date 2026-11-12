@@ -21,11 +21,6 @@ spring:
 server:
   port: 6433
 
-nextiva:
-  swagger:
-    show-build-info: true
-    show-git-info: true
-
 flume:
   dataPath: /opt/flume-forwarder
   metrics: http
