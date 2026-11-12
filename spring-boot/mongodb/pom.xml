@@ -26,11 +26,6 @@
   <artifactId>flume-spring-boot-mongodb</artifactId>
   <packaging>jar</packaging>
   <name>Flume Spring Boot MongoDb</name>
-  <scm>
-    <connection>scm:git:${gitConnectionUrl}/flume-mongodb.git</connection>
-    <developerConnection>scm:git:${gitConnectionUrl}/flume-mongodb.git</developerConnection>
-    <url>${gitUrl}/flume-mongodb</url>
-  </scm>
 
   <properties>
     <!-- Must match the driver version used by flume-mongodb-sink -->
@@ -79,7 +74,6 @@
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-jcl</artifactId>
     </dependency>
-    <!-- Apache HttpClient -->
     <dependency>
       <groupId>org.apache.flume</groupId>
       <artifactId>flume-spring-boot</artifactId>
@@ -119,73 +113,9 @@
       </exclusions>
     </dependency>
 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.1.0</version>
-        <executions>
-          <execution>
-            <id>enforce</id>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <dependencyConvergence />
-                <requireJavaVersion>
-                  <version>[17,)</version>
-                </requireJavaVersion>
-              </rules>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.10.1</version>
-        <configuration>
-          <release>${compiler.version}</release>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>3.1.0</version>
-        <executions>
-          <execution>
-            <id>default-jar</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-            <configuration>
-              <archive>
-                <manifestFile>${manifestfile}</manifestFile>
-                <manifestEntries>
-                  <Specification-Title>${project.name}</Specification-Title>
-                  <Specification-Version>${project.version}</Specification-Version>
-                  <Specification-Vendor>${project.organization.name}</Specification-Vendor>
-                  <Implementation-Title>${project.name}</Implementation-Title>
-                  <Implementation-Version>${project.version}</Implementation-Version>
-                  <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
-                  <Implementation-Vendor-Id>org.apache</Implementation-Vendor-Id>
-                  <X-Compile-Source-JDK>${compiler.version}</X-Compile-Source-JDK>
-                  <X-Compile-Target-JDK>${compiler.version}</X-Compile-Target-JDK>
-                  <Multi-Release>true</Multi-Release>
-                </manifestEntries>
-              </archive>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
@@ -209,49 +139,6 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>com.diffplug.spotless</groupId>
-        <artifactId>spotless-maven-plugin</artifactId>
-        <version>${spotless.version}</version>
-        <configuration>
-          <java>
-            <includes>
-              <include>src/*/java/**/*.java</include>
-            </includes>
-            <licenseHeader>
-              <content>/*
-                 * Licensed to the Apache Software Foundation (ASF) under one or more
-                 * contributor license agreements.  See the NOTICE file distributed with
-                 * this work for additional information regarding copyright ownership.
-                 * The ASF licenses this file to You under the Apache License, Version 2.0
-                 * (the "License"); you may not use this file except in compliance with
-                 * the License.  You may obtain a copy of the License at
-                 *
-                 *   http://www.apache.org/licenses/LICENSE-2.0
-                 *
-                 * Unless required by applicable law or agreed to in writing, software
-                 * distributed under the License is distributed on an "AS IS" BASIS,
-                 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                 * See the License for the specific language governing permissions and
-                 * limitations under the License.
-                 */</content>
-            </licenseHeader>
-            <palantirJavaFormat>
-              <version>2.47.0</version>
-              <formatJavadoc>true</formatJavadoc>
-            </palantirJavaFormat>
-          </java>
-        </configuration>
-        <executions>
-          <execution>
-            <id>check</id>
-            <goals>
-              <goal>check</goal>
-            </goals>
-            <phase>verify</phase>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-transform-maven-plugin</artifactId>
         <version>${log4j-transform.version}</version>
@@ -265,46 +152,4 @@
       </plugin>
     </plugins>
   </build>
-  <profiles>
-    <profile>
-      <id>dependency-check</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.owasp</groupId>
-            <artifactId>dependency-check-maven</artifactId>
-            <version>${dependencycheck.version}</version>
-            <configuration>
-              <format>ALL</format>
-              <outputDirectory>${project.build.directory}/</outputDirectory>
-              <pyDistributionAnalyzerEnabled>false</pyDistributionAnalyzerEnabled>
-              <pyPackageAnalyzerEnabled>false</pyPackageAnalyzerEnabled>
-              <rubygemsAnalyzerEnabled>false</rubygemsAnalyzerEnabled>
-              <cmakeAnalyzerEnabled>false</cmakeAnalyzerEnabled>
-              <autoconfAnalyzerEnabled>false</autoconfAnalyzerEnabled>
-              <composerAnalyzerEnabled>false</composerAnalyzerEnabled>
-              <nspAnalyzerEnabled>false</nspAnalyzerEnabled>
-              <nuspecAnalyzerEnabled>false</nuspecAnalyzerEnabled>
-              <cocoapodsAnalyzerEnabled>false</cocoapodsAnalyzerEnabled>
-              <bundleAuditAnalyzerEnabled>false</bundleAuditAnalyzerEnabled>
-              <swiftPackageManagerAnalyzerEnabled>false</swiftPackageManagerAnalyzerEnabled>
-              <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
-              <cveUrl12Modified>https://NVD.nextiva.xyz/nvdcve-Modified.xml.gz</cveUrl12Modified>
-              <cveUrl20Modified>https://NVD.nextiva.xyz/nvdcve-2.0-Modified.xml.gz</cveUrl20Modified>
-              <cveUrl12Base>https://NVD.nextiva.xyz/nvdcve-%d.xml.gz</cveUrl12Base>
-              <cveUrl20Base>https://NVD.nextiva.xyz/nvdcve-2.0-%d.xml.gz</cveUrl20Base>
-            </configuration>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>aggregate</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 </project>

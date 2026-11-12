@@ -73,7 +73,7 @@
       </dependency>
       <dependency>
         <groupId>org.apache.flume</groupId>
-        <artifactId>flume-third-party-dependencies</artifactId>
+        <artifactId>flume-third-party-bom</artifactId>
         <version>${flume.version}</version>
         <type>pom</type>
         <scope>import</scope>

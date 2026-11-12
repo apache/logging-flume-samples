@@ -38,11 +38,7 @@
 
   <properties>
     <spring-boot.version>4.1.1</spring-boot.version>
-    <tomcat.version>9.0.65</tomcat.version>
-    <guava.version>31.1-jre</guava.version>
-    <snappy.version>1.1.8.4</snappy.version>
-    <dependencycheck.version>2.1.1</dependencycheck.version>
-    <!-- Must match the netty-all version managed by flume-third-party-dependencies -->
+    <!-- Must match the netty-all version managed by flume-third-party-bom -->
     <netty-all.version>4.2.19.Final</netty-all.version>
   </properties>
 
@@ -73,7 +69,7 @@
       </dependency>
       <dependency>
         <groupId>org.apache.flume</groupId>
-        <artifactId>flume-third-party-dependencies</artifactId>
+        <artifactId>flume-third-party-bom</artifactId>
         <version>${flume.version}</version>
         <type>pom</type>
         <scope>import</scope>
