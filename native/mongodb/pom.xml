@@ -30,7 +30,7 @@
 
   <properties>
     <!-- Must match the driver version used by flume-mongodb-sink -->
-    <mongodb.version>5.10.0</mongodb.version>
+    <mongodb.version>5.14.0</mongodb.version>
     <!-- Causes the repacked jar to be named ${project.build.finalName}.jar and renames the
          original jar to ${project.build.finalName}.jar.original.
          Must be set as a property: an empty <repackClassifier/> element is treated as unset. -->

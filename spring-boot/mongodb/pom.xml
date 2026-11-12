@@ -29,7 +29,7 @@
 
   <properties>
     <!-- Must match the driver version used by flume-mongodb-sink -->
-    <mongodb.version>5.10.0</mongodb.version>
+    <mongodb.version>5.14.0</mongodb.version>
   </properties>
 
   <dependencyManagement>

@@ -37,9 +37,9 @@
   </modules>
 
   <properties>
-    <spring-boot.version>4.1.1</spring-boot.version>
+    <spring-boot.version>4.1.2</spring-boot.version>
     <!-- Must match the netty-all version managed by flume-third-party-bom -->
-    <netty-all.version>4.2.19.Final</netty-all.version>
+    <netty-all.version>4.2.20.Final</netty-all.version>
   </properties>
 
   <dependencyManagement>
