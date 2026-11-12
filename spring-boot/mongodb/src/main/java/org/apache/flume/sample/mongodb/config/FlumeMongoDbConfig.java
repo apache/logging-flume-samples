@@ -32,12 +32,10 @@ import org.apache.flume.source.avro.AvroSource;
 import org.apache.flume.spring.boot.config.AbstractFlumeConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /** */
 @Configuration
-@ComponentScan(basePackages = "org.apache.flume")
 public class FlumeMongoDbConfig extends AbstractFlumeConfiguration {
     private static final String SINK_NAME = "MongoDbSink-";
     /*
@@ -45,13 +43,13 @@ public class FlumeMongoDbConfig extends AbstractFlumeConfiguration {
      */
     @Bean
     @ConfigurationProperties(prefix = "flume.sources.avro")
-    public Map<String, String> ratingSourceProperties() {
+    public Map<String, String> sourceProperties() {
         return new HashMap<>();
     }
 
     @Bean
     @ConfigurationProperties(prefix = "flume.channels.file-channels")
-    public Map<String, ChannelConfiguration> ratingChannelsProperties() {
+    public Map<String, ChannelConfiguration> channelsProperties() {
         return new HashMap<>();
     }
 
@@ -66,9 +64,9 @@ public class FlumeMongoDbConfig extends AbstractFlumeConfiguration {
      */
 
     @Bean
-    public Map<String, Channel> ratingFileChannels(final Map<String, ChannelConfiguration> ratingChannelProperties) {
+    public Map<String, Channel> fileChannels(final Map<String, ChannelConfiguration> channelsProperties) {
         Map<String, Channel> channels = new HashMap<>();
-        for (Map.Entry<String, ChannelConfiguration> entry : ratingChannelProperties.entrySet()) {
+        for (Map.Entry<String, ChannelConfiguration> entry : channelsProperties.entrySet()) {
             String channelName = entry.getKey();
             FileChannel channel = configureChannel(
                     channelName, FileChannel.class, entry.getValue().getProperties());
@@ -81,14 +79,13 @@ public class FlumeMongoDbConfig extends AbstractFlumeConfiguration {
      * Create the Sources.
      */
     @Bean
-    public SourceRunner ratingSource(
-            final Map<String, Channel> ratingFileChannels, final Map<String, String> ratingSourceProperties) {
+    public SourceRunner source(final Map<String, Channel> fileChannels, final Map<String, String> sourceProperties) {
         final Map<String, String> params = new HashMap<>();
         params.put("policy", "ROUND_ROBIN");
-        List<Channel> channels = new ArrayList<>(ratingFileChannels.values());
+        List<Channel> channels = new ArrayList<>(fileChannels.values());
         ChannelSelector selector = createChannelSelector(LoadBalancingChannelSelector.class, channels, params);
 
-        return configureSource("ratingSource", AvroSource.class, selector, ratingSourceProperties);
+        return configureSource("source", AvroSource.class, selector, sourceProperties);
     }
 
     /*
@@ -96,9 +93,9 @@ public class FlumeMongoDbConfig extends AbstractFlumeConfiguration {
      */
     @Bean
     public Map<String, SinkRunner> sinkRunners(
-            final Map<String, Channel> ratingFileChannels, final MongoDbSinkConfiguration mongoDbSinkProperties) {
+            final Map<String, Channel> fileChannels, final MongoDbSinkConfiguration mongoDbSinkProperties) {
         List<Sink> sinks = new ArrayList<>();
-        for (Map.Entry<String, Channel> channelEntry : ratingFileChannels.entrySet()) {
+        for (Map.Entry<String, Channel> channelEntry : fileChannels.entrySet()) {
             String channelName = channelEntry.getKey();
             String suffix = channelName.substring(channelName.length() - 1);
             sinks.add(configureSink(

@@ -35,12 +35,10 @@ import org.apache.flume.source.avro.AvroSource;
 import org.apache.flume.spring.boot.config.AbstractFlumeConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /** */
 @Configuration
-@ComponentScan(basePackages = "com.nextiva.flume")
 public class FlumeForwarderConfig extends AbstractFlumeConfiguration {
 
     /*
